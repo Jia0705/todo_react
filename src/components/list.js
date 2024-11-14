@@ -1,28 +1,27 @@
 import Item from "./item";
 
-function ItemsList(props) {
-  const { list, onTaskDelete, onTaskDone} = props;
-  return (
-    <ul className="list-group">
-      {list.map((item) => {
-        return (
-        <Item 
-        key={item.id}
-        text={item.text} 
-        isCompleted={item.isCompleted} 
-        {...item}
-        onTaskDelete={(id) => {
-          onTaskDelete(id);
-        }}
-        onTaskDone={(id) => {
-          onTaskDone(id);
-        }}
-        />
-      );
+function ItemsList({list, toggleTask, deleteTask}) {
+    return (
+        <div
+      className="card rounded shadow-sm"
+      style={{
+        maxWidth: "500px",
+        margin: "60px auto"
+      }}
+    >
+       <ul class="list-group">
+      {list.map((task) => {
+        return <Item 
+        key={task.id}
+        text={Item.text}
+        isCompleted={Item.isCompleted}
+        task={task}
+        toggleTask={toggleTask}
+        deleteTask={deleteTask}/>;
       })}
-    </ul>
-  );
+      </ul>
+      </div>
+    );
 }
 
 export default ItemsList;
-  
