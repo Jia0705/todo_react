@@ -15,7 +15,8 @@ function Item(props) {
         <span
           className={`ms-2 ${
             isCompleted ? "text-decoration-line-through" : ""
-          }`} onClick={() => onTaskDone(id)}
+          }`}
+          onClick={() => onTaskDone(id)}
         >
           {text}
         </span>

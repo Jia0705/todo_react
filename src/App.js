@@ -17,21 +17,20 @@ function App() {
         <ItemsList
           list={list}
           onTaskDelete={(id) => {
-            // filter OUT the task with the given id
+            // Filter out the task with the given id
             const newList = list.filter((t) => t.id !== id);
-            // update the newList with the setState function
+            // Update the list with the setState function
             setList(newList);
           }}
-          
           onTaskDone={(id) => {
-            const abc = list.map((item) => {
+            const updatedList = list.map((item) => {
               if (item.id === id) {
-                return {...item, isCompleted: !item.isCompleted};
-              } else{
-              return item;
+                return { ...item, isCompleted: !item.isCompleted };
+              } else {
+                return item;
               }
             });
-            setList(abc);
+            setList(updatedList);
           }}
         />
 

@@ -25,4 +25,3 @@ function ItemsList(props) {
 }
 
 export default ItemsList;
-  
