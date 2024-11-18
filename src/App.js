@@ -24,14 +24,14 @@ function App() {
           }}
           
           onTaskDone={(id) => {
-            const sleepy = list.map((item) => {
+            const abc = list.map((item) => {
               if (item.id === id) {
                 return {...item, isCompleted: !item.isCompleted};
               } else{
               return item;
               }
             });
-            setList(sleepy);
+            setList(abc);
           }}
         />
 
