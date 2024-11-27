@@ -3,6 +3,7 @@ import { useState } from "react";
 function AddNewForm(props) {
   const { onNewTaskAdded } = props;
   const [taskName, setTaskName] = useState("");
+  
   return (
     <div className="mt-4">
       <form className="d-flex justify-content-between align-items-center">

@@ -1,11 +1,29 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
 
+// Import components
 import AddNewForm from "./components/addnew";
 import ItemsList from "./components/list";
 
 function App() {
-  const [list, setList] = useState([]);
+  // Load items from localStorage
+  const stringItems = localStorage.getItem("items");
+  // Turn string to array
+  let items = JSON.parse(stringItems);
+
+  if (!items) {
+    items = [];
+  }
+
+  // Initialize state with the loaded items
+  const [list, setList] = useState(items);
+
+  const updateLocalStorage = (updatedList) => {
+    // Convert updatedList to a string
+    let stringList = JSON.stringify(updatedList);
+
+    localStorage.setItem("items", stringList);
+  };
 
   return (
     <div
@@ -14,13 +32,15 @@ function App() {
     >
       <div className="card-body">
         <h3 className="card-title mb-3">My Todo List</h3>
+        {/* Items List */}
         <ItemsList
           list={list}
           onTaskDelete={(id) => {
             // Filter out the task with the given id
             const newList = list.filter((t) => t.id !== id);
-            // Update the list with the setState function
+            // Update the list with setState and save to localStorage
             setList(newList);
+            updateLocalStorage(newList);
           }}
           onTaskDone={(id) => {
             const updatedList = list.map((item) => {
@@ -31,21 +51,24 @@ function App() {
               }
             });
             setList(updatedList);
+            updateLocalStorage(updatedList);
           }}
         />
 
+        {/* Add New Form */}
         <AddNewForm
           onNewTaskAdded={(taskName) => {
-            // clone the existing state
+            // Clone the existing state
             const newList = [...list];
-            // push the new item into the newList
+            // Push the new item into the newList
             newList.push({
-              id: nanoid(), // generate id
-              // id: newList.length + 1,
+              id: nanoid(), // Generate unique id
               text: taskName,
+              isCompleted: false, // Default state
             });
-            // update the newList with the setState function
+            // Update the state and save to localStorage
             setList(newList);
+            updateLocalStorage(newList);
           }}
         />
       </div>
